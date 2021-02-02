@@ -15,7 +15,6 @@ const toggleTodoMutation = graphql`
 `;
 
 export default function ToggleTodo({ id, completed }) {
-  console.log(id, completed);
   const [commit, isInFlight] = useMutation(toggleTodoMutation);
   function changeHandler(e) {
     console.log(e.target.checked);
