@@ -32,33 +32,20 @@ function TodoInput() {
           console.log(data, "!!!");
         },
         updater: (store) => {
-          console.log("updater");
           const payload = store.getRootField("insert_todos_one");
-          console.log(payload);
           const proxy = store.getRoot();
           const conn = ConnectionHandler.getConnection(
             proxy,
             "TodoList_todos_connection"
           );
-          console.log(conn, "conn");
           const todo = store.get(payload.getDataID());
-          console.log(todo, "todo");
           const newEdge = ConnectionHandler.createEdge(
-            proxy,
+            store,
             conn,
             todo,
-            "todos"
+            "todosEdge"
           );
-          console.log(newEdge);
-          // // console.log(payload.copyFieldsFrom());
-          // // const newEdge = payload.getOrCreateLinkedRecord("todosEdge");
-          // // newEdge.setValue(newTodo, "node");
-          // // const proxy = store.getRoot();
-          // // const conn = ConnectionHandler.getConnection(
-          // //   proxy,
-          // //   "TodoList_todos_connection"
-          // // );
-          // ConnectionHandler.insertEdgeAfter(conn, newEdge);
+          ConnectionHandler.insertEdgeAfter(conn, newEdge);
         },
       });
     }
